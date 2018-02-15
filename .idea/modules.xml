@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bitcoin_prediction-master.iml" filepath="$PROJECT_DIR$/bitcoin_prediction-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crypto_prediction-master.iml" filepath="$PROJECT_DIR$/crypto_prediction-master.iml" />
     </modules>
   </component>
 </project>
