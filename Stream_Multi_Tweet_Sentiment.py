@@ -6,9 +6,11 @@ import datetime
 import time
 import logging
 import pathlib
+import argparse
+from pathlib import Path
 
 class TweeterSentimentAnalyzer:
-    def __init__(self):
+    def __init__(self, mypath):
         logging.basicConfig(level=logging.DEBUG)
 
         self.currencyLst = ['bitcoin','ethereum','ripple','litecoin','eos','iota']
@@ -18,8 +20,8 @@ class TweeterSentimentAnalyzer:
         self.access_token='926643380-mTGIw7bfYqF6sxbiZqNZb0LCdBypqAtIEC4rPtll'
         self.access_token_secret='4hetDuuv5lDtzzAPzyN1E1a5XX41bJeQNATggb0Mwqf3m'
 
-        self.path="data/"
-
+        #self.path="data/"
+        self.path=mypath
         pathlib.Path(self.path).mkdir(parents=True, exist_ok=True)
 
 
@@ -32,6 +34,9 @@ class TweeterSentimentAnalyzer:
 
 
     def readSentimentByTextBlob(self, ccy):
+        if(not Path(self.path).exists()):
+            logging.error(self.path+ " not exists")
+            exit(-1)
         path = self.path+'live.tweet.'+ccy+'.csv'
         f = open(path,"a")
 
@@ -63,9 +68,17 @@ class TweeterSentimentAnalyzer:
         return tweet_polarity
 
 
+parser = argparse.ArgumentParser(__file__, description="Stream sentiment")
 
+parser.add_argument("--dataPath", "-p", dest='dataPath', help="Input a dataPath" )
+args = parser.parse_args()
+defaultPath="./data"
+mypath=args.dataPath
+if (mypath is None):
+    mypath=defaultPath
+mypath=mypath+"/"
 
-sentiment = TweeterSentimentAnalyzer()
+sentiment = TweeterSentimentAnalyzer(mypath)
 
 while (True):
     for ccy in sentiment.currencyLst:
