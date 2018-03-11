@@ -56,9 +56,13 @@ mypath=mypath+"/"
 quote = CoinMarketCapQuote(mypath)
 
 while (True):
-    for ccy in quote.currencyLst:
-        status=quote.extractCrypto(ccy)
-        logging.info(status)
-    time.sleep(60)
+    try:
+        for ccy in quote.currencyLst:
+            status=quote.extractCrypto(ccy)
+            logging.info(status)
+        time.sleep(60)
+    except :
+        logging.error("Error connecting to ".format(quote.extractionServiceURL))
+        time.sleep(60)
     #quote.extractCrypto("ethereum")
     #quote.extractCrypto("iota")

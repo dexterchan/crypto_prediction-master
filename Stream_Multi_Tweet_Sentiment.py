@@ -81,9 +81,13 @@ mypath=mypath+"/"
 sentiment = TweeterSentimentAnalyzer(mypath)
 
 while (True):
-    for ccy in sentiment.currencyLst:
-        sentiment.readSentimentByTextBlob(ccy)
-        logging.info(ccy+" sentiment ok")
-    time.sleep(60)
+    try:
+        for ccy in sentiment.currencyLst:
+            sentiment.readSentimentByTextBlob(ccy)
+            logging.info(ccy+" sentiment ok")
+        time.sleep(60)
+    except:
+        logging.error("Error connecting to tweeter")
+        time.sleep(60)
     #quote.extractCrypto("ethereum")
     #quote.extractCrypto("iota")
